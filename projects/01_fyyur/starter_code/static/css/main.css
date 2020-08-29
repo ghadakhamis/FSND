@@ -209,3 +209,17 @@ h2.monospace {
 .subtitle {
   opacity: 0.5;
 }
+.errors{
+  color: red;
+}
+.button-delete{
+	-webkit-appearance: none;
+	border: none;
+	outline: none;
+	color: red;
+	float: right;
+	cursor: pointer;
+	font-size: 30px;
+	background: none;
+
+}

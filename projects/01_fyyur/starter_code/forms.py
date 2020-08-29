@@ -1,14 +1,14 @@
 from datetime import datetime
 from flask_wtf import Form
-from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField
+from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, AnyOf, URL
 
 class ShowForm(Form):
     artist_id = StringField(
-        'artist_id'
+        'artist_id', validators=[DataRequired()]
     )
     venue_id = StringField(
-        'venue_id'
+        'venue_id', validators=[DataRequired()]
     )
     start_time = DateTimeField(
         'start_time',
@@ -83,7 +83,7 @@ class VenueForm(Form):
         'address', validators=[DataRequired()]
     )
     phone = StringField(
-        'phone'
+        'phone',validators=[DataRequired()]
     )
     image_link = StringField(
         'image_link'
@@ -116,6 +116,16 @@ class VenueForm(Form):
     facebook_link = StringField(
         'facebook_link', validators=[URL()]
     )
+    website = StringField(
+        'website', validators=[URL()]
+    )
+    seeking_description =  StringField(
+        'websiseeking_descriptionte',  validators=[]
+    )
+    seeking_talent = BooleanField(
+        'seeking_talent',validators=[]
+    )
+    submit = SubmitField('SUBMIT')
 
 class ArtistForm(Form):
     name = StringField(
@@ -185,7 +195,7 @@ class ArtistForm(Form):
         'phone'
     )
     image_link = StringField(
-        'image_link'
+        'image_link', validators=[DataRequired()]
     )
     genres = SelectMultipleField(
         # TODO implement enum restriction
@@ -216,5 +226,15 @@ class ArtistForm(Form):
         # TODO implement enum restriction
         'facebook_link', validators=[URL()]
     )
+    website = StringField(
+        'website', validators=[URL()]
+    )
+    seeking_description =  StringField(
+        'websiseeking_descriptionte',  validators=[]
+    )
+    seeking_venue = BooleanField(
+        'seeking_venue',validators=[]
+    )
+    submit = SubmitField('SUBMIT')
 
 # TODO IMPLEMENT NEW ARTIST FORM AND NEW SHOW FORM
