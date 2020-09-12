@@ -42,3 +42,204 @@ The `./frontend` directory contains a complete React frontend to consume the dat
 Pay special attention to what data the frontend is expecting from each API response to help guide how you format your API. 
 
 [View the README.md within ./frontend for more details.](./frontend/README.md)
+### Installing Dependencies
+
+#### Installing Node and NPM
+
+This project depends on Nodejs and Node Package Manager (NPM). Before continuing, you must download and install Node (the download includes NPM) from [https://nodejs.com/en/download](https://nodejs.org/en/download/).
+
+#### Installing project dependencies
+
+## Frontend Dependencies
+
+This project uses NPM to manage software dependencies. NPM Relies on the package.json file located in the `frontend` directory of this repository. After cloning, open your terminal and run:
+
+```bash
+npm install
+```
+
+## Backend Dependencies
+
+Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
+
+```bash
+pip install -r requirements.txt
+```
+#### Running project
+
+## Running Your Frontend in Dev Mode
+
+The frontend app was built using create-react-app. In order to run the app in development mode use ```npm start```. You can change the script in the ```package.json``` file. 
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits.<br>
+
+```bash
+npm start
+```
+
+## Running the Backend
+
+From within the `backend` directory first ensure you are working using your created virtual environment.
+
+To run the server, execute:
+
+```bash
+export FLASK_APP=flaskr
+export FLASK_ENV=development
+flask run
+```
+
+#### API Reference
+
+## Getting Started
+Base URL: This application is hosted locally. The backend is hosted at http://localhost:5000/ and the frontend is hosted at http://localhost:3000/
+
+## Error Handling
+Errors are returned as JSON in the following format:
+
+{
+    "success": False,
+    "error": 400,
+    "message": "bad request"
+}
+There are three types of errors which API will return one of them:
+
+400 – bad request
+404 – resource not found
+422 – unprocessable
+
+## Endpoints
+
+# GET /categories
+-Description: Returns a list categories.
+-Full url: curl http://localhost:5000/categories
+-Response:
+  {
+      "categories": {
+          "1": "Science", 
+          "2": "Art", 
+          "3": "Geography", 
+          "4": "History", 
+          "5": "Entertainment", 
+          "6": "Sports"
+      }, 
+      "success": true
+  }
+# GET /questions
+-Description: Returns a list of pagination questions and list of categories.
+-Full url: curl http://localhost:5000/questions
+-Response:
+  {
+      "categories": {
+          "1": "Science", 
+          "2": "Art", 
+          "3": "Geography", 
+          "4": "History", 
+          "5": "Entertainment", 
+          "6": "Sports"
+      }, 
+      "questions": [
+          {
+              "answer": "Test answer", 
+              "category": 3, 
+              "difficulty": 3, 
+              "id": 164, 
+              "question": "test question?"
+          }
+      ],
+      "total_questions": 1,
+      "success": true
+  }
+# DELETE /questions/<int:id>
+-Description: delete question using it's id.
+-Full url: curl http://localhost:5000/questions/1
+-Response:
+  {
+      "questions_id": 1, 
+      "success": true
+  }
+# GET /categories/<int:id>/questions
+-Description: Get category using id and list of it's questions.
+-Full url: curl http://localhost:5000/categories/1/questions
+-Response:
+{
+      "current_category": "Science", 
+      "questions": [
+          {
+              "answer": "The Liver", 
+              "category": 1, 
+              "difficulty": 4, 
+              "id": 20, 
+              "question": "What is the heaviest organ in the human body?"
+          }
+      ], 
+      "success": true, 
+      "total_questions": 1
+  }
+# POST /quizzes
+-Description: Allows users to play the quiz game.
+-Full url: curl http://localhost:5000/quizzes
+-Body: {"previous_questions": [20, 21], "quiz_category": {"type": "Science", "id": "1"}}'
+-Response:
+  {
+      "question": {
+          "answer": "test answer", 
+          "category": 1, 
+          "difficulty": 4, 
+          "id": 22, 
+          "question": "test question?"
+      }, 
+      "success": true
+  }
+# POST /questions
+-Description: allows users to create new question or saerch into question list 
+-Full url: curl http://localhost:5000/questions
+-Body: 
+* case create question: { "question": "test question?", "answer": "test answer", "difficulty": 3, "category": "3" }
+* case search into questions: {"searchTerm": "title"}
+-Response:
+* case create question:
+ {
+      "questions": [
+          {
+              "answer": "test", 
+              "category": 5, 
+              "difficulty": 4, 
+              "id": 2, 
+              "question": "test?"
+          }, 
+          {
+              "answer": "test", 
+              "category": 5, 
+              "difficulty": 4, 
+              "id": 4, 
+              "question": "test?"
+          }
+      ], 
+      "success": true, 
+      "total_questions": 2
+  }
+* case search into questions:
+{
+      "questions": [
+          {
+              "answer": "test", 
+              "category": 6, 
+              "difficulty": 3, 
+              "id": 10, 
+              "question": "test?"
+          }
+      ], 
+      "success": true, 
+      "total_questions": 1
+  }
+
+#### Testing
+To run the tests, run
+```
+dropdb trivia_test
+createdb trivia_test
+psql trivia_test < trivia.psql
+python test_flaskr.py
+```
+
