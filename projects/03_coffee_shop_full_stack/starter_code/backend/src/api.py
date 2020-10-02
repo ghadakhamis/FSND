@@ -73,7 +73,9 @@ def create_drink(jwt):
     title = body.get('title')
     recipe = json.dumps(body.get('recipe'))
 
-    if ((title is None) or (recipe is None)):
+    drinks = Drink.query.filter(Drink.title == title).all()
+
+    if ((title is None) or (recipe is None) or (len(drinks) > 0)):
         abort(400) 
 
     drink = Drink(title=title, recipe=recipe)
@@ -97,13 +99,14 @@ def create_drink(jwt):
 '''
 @app.route('/drinks/<int:id>', methods=['PATCH'])
 @requires_auth('patch:drinks')
-def update_drink(jwt):
+def update_drink(jwt,id):
     drink = Drink.query.filter(Drink.id == id).one_or_none()
     if drink is None:
         abort(404)
     try:
-        req_title = request.get_json()('title')
-        req_recipe = request.get_json()('recipe')
+        body = request.get_json()
+        req_title = body.get('title')
+        req_recipe = body.get('recipe')
         if req_title:
             drink.title = req_title
 
@@ -114,7 +117,8 @@ def update_drink(jwt):
     except BaseException:
         abort(400)
 
-    return jsonify({'success': True, 'drinks': [drink.long()]}), 200
+    drinks = Drink.query.all()
+    return jsonify({'success': True, 'drinks': [drink.long() for drink in drinks]}), 200
 
 '''
 @TODO implement endpoint
